@@ -1,4 +1,4 @@
-SDL_SetRenderDrawColor( debug_renderer, 0, 0, 0, 255 );
+SDL_SetRenderDrawColor( debug_renderer, 0, 20, 0, 255 );
 
 SDL_RenderClear(debug_renderer);
 

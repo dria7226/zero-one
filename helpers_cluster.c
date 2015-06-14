@@ -128,15 +128,6 @@ void free_tree(cluster_tree* tree)
 
 
 //Cluster draw
-void draw_tree(cluster_tree* tree, int x, int y, int subnode_spacing)
-{
-	SDL_SetRenderDrawColor(debug_renderer, 0 , 255, 0, 255);
-	
-	draw_node(tree->top_node, x, y, subnode_spacing);
-	
-	SDL_RenderPresent(debug_renderer);
-}
-
 void draw_node(tree_node* node, int x, int y, int subnode_spacing)
 {	
 	//draw square for node
@@ -178,4 +169,13 @@ void draw_node(tree_node* node, int x, int y, int subnode_spacing)
 			draw_cross(s_x,s_y,2);
 		}
 	}
+}
+
+void draw_tree(cluster_tree* tree, int x, int y, int subnode_spacing)
+{
+	SDL_SetRenderDrawColor(debug_renderer, 0 , 255, 0, 255);
+	
+	draw_node(tree->top_node, x, y, subnode_spacing);
+	
+	SDL_RenderPresent(debug_renderer);
 }
