@@ -3,6 +3,8 @@
 
 typedef enum{ false, true}bool;
 
+typedef struct point { int x; int y;}point;
+
 /**************************
  *
  * Zero One

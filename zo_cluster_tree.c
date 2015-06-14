@@ -6,7 +6,7 @@
 
 //#define CLUSTER_SIZE 256
 
-#define CLUSTER_SIZE 3
+#define CLUSTER_SIZE 4
 
 //Cluster node
 

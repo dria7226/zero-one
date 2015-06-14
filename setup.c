@@ -26,3 +26,5 @@ if( renderer == NULL )
 #include "zo_load_interface.c"
 
 #include "zo_load_program.c"
+
+#include "debug_window_setup.c"

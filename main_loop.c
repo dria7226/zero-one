@@ -10,4 +10,6 @@ while(!done)
 	}	
 
 	#include "zo_main_loop.c"
+	
+	#include "debug_main_loop.c"
 }

@@ -34,21 +34,4 @@ for(z=0; z < 5; z++)
 	test_tree->top_node = node;
 }
 
-
-SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-
-SDL_RenderClear(renderer);
-
-SDL_RenderPresent(renderer);
-
-SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 );
-
-//draw nodes
-
-draw_node(test_tree->top_node,600,100, 300);
-
-SDL_RenderPresent(renderer);
-
 printf("Ending tree test.\n");
-
-SDL_Delay(10000);
