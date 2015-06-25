@@ -211,18 +211,34 @@ void draw_node(tree_node* node)
 	//draw cluster
 	if(node->cluster)
 	{
-		unsigned int width = (unsigned int)(window_width/(CLUSTER_SIZE-1));
+		draw_line(window_width/2,window_height/2,window_width/2,window_height/2+window_height/8);
+		draw_line(window_width/2-15,window_height/2+window_height/8-15,window_width/2,window_height/2+window_height/8);
+		draw_line(window_width/2+15,window_height/2+window_height/8-15,window_width/2,window_height/2+window_height/8);
+		
+		unsigned int line_width = 32;
+		
+		unsigned int width = (unsigned int)(window_width/line_width/2 + 6);
 		if(width > 30) width = 30;
+		
 		for(v = 0; v < CLUSTER_SIZE-1; v++)
 		{
+			int s_x;
+			int s_y;
+			
+			s_x = window_width/2 - width*line_width/2 + width + width*(v%line_width);
+			s_y = window_height/4*3 + width*(v/line_width - 1);
+			
+			
+			SDL_SetRenderDrawColor(debug_renderer,0,255,0,255);
+			
+			draw_symbol_value(s_x,s_y,&(node->cluster[v]));
+			
 			if(node->cluster[v].type = function)
 				SDL_SetRenderDrawColor( debug_renderer, 0, 0, 255, 255 );
 			else
 				SDL_SetRenderDrawColor( debug_renderer, 255, 0, 0, 255 );
 			
-			draw_square(window_width/2 - width*(CLUSTER_SIZE-2)/2+width*v
-						,window_height/4*3
-						,width/2);
+			draw_square(s_x,s_y,width/2);
 			
 			SDL_SetRenderDrawColor( debug_renderer, 0, 255, 0, 255 );
 		}

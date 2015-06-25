@@ -4,9 +4,7 @@
 *
 ***********************/
 
-//#define CLUSTER_SIZE 255
-
-#define CLUSTER_SIZE 5
+#define CLUSTER_SIZE 255
 
 //Cluster node
 

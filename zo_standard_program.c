@@ -6,12 +6,12 @@
 unsigned char program[] = 
 {
     function , MOV, 0x0 , 0   , 0x0 , STEP_DT,
-	function , MOV, 0x0 , 255 , 0x0 , A,
+	function , MOV, 0x0 , 255 , 0x0 , C_A,
     function , MOV, 0x0 , 2 , 0x0 , SUB_B,
     
-    	function , MOV , 0x0 , 20 , 0x0 , G,
+    	function , MOV , 0x0 , 20 , 0x0 , C_G,
     	function , CLRS,
-    	function , MOV , 0x0 , 255 , 0x0 , G,
+    	function , MOV , 0x0 , 255 , 0x0 , C_G,
     
 	   	function , AT , 0x0 , M_X, 0x0 , X1,
 	    function , AT , 0x0 , M_Y , 0x0 , Y1,

@@ -13,3 +13,5 @@ if( debug_renderer == NULL )
 {
     SDL_Log( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
 }
+
+load_draws();
