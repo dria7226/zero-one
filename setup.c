@@ -8,7 +8,7 @@ window_width = (int)(display.w*0.9);
 window_height = (int)(display.h*0.9);
 
 //Create window
-window = SDL_CreateWindow("01", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN );
+window = SDL_CreateWindow("01", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_HIDDEN );
 
 if( window == NULL )
 {
@@ -22,6 +22,11 @@ if( renderer == NULL )
 {
     SDL_Log( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
 }
+
+memory = init_tree();
+
+selected_node = memory->top_node;
+selected_subnode = 0;
 
 #include "zo_load_interface.c"
 

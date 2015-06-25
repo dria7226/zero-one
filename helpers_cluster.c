@@ -37,7 +37,7 @@ tree_node* init_cluster()
 	tree_node* node = init_tree_node();
 	
 	//Initialize an array of CLUSTER_SIZE tape_type s
-	node->cluster = (tape_type*)calloc(CLUSTER_SIZE,sizeof(tape_type));
+	node->cluster = (symbol*)calloc(CLUSTER_SIZE-1,sizeof(symbol));
 	if(!(node->cluster))
 	{
 		free(node);
@@ -54,13 +54,33 @@ cluster_tree* init_tree()
 	
 	tree->top_node = init_cluster();
 	
-	tree->length = 1;
-	tree->total_size = 1;
+	tree->height = 0;
 	
 	return tree;
 }
 
-tree_node* get_cluster_by_address(cluster_tree* tree, char* address)
+void supernode(tree_node* node)
+{
+	if(node->supernode)return;
+	tree_node* super = init_subnodes();
+	super->subnodes[0] = node;
+	node->supernode = super;
+}
+
+void supernode_tree(cluster_tree* tree)
+{
+	supernode(tree->top_node);
+	tree->top_node = tree->top_node->supernode;
+}
+
+void subnode(tree_node* node, unsigned char address)
+{
+	if(!node || !(node->subnodes) || node->cluster || node->subnodes[address])return;
+	node->subnodes[address] = init_subnodes();
+	node->subnodes[address]->supernode = node;
+}
+
+tree_node* get_cluster_by_address(cluster_tree* tree, unsigned char* address)
 {
 
 }
@@ -70,49 +90,83 @@ void swap_clusters(tree_node* node_a, tree_node* node_b)
 
 }
 
-void insert_cluster(tree_node* node, tree_node* target)
+void insert_cluster_at_address(unsigned char* address, tree_node* target)
 {
 
 }
 
-void add_cluster(cluster_tree* tree)
-{
-	if(!tree->top_node) return;
+void create_cluster_at_address(unsigned char* address, cluster_tree* tree)
+{	
+	#include "address_cleanup.c"
 	
-	tree_node* current_node = tree->top_node;
+	if(!address_length)return;
+
 	
-	int i;
-	//while the working node has subnodes
-	while(current_node->subnodes)
+	if(address_length > tree->height+1)
 	{
-		//we find the last subnode and make it current
-		
-		for(i == CLUSTER_SIZE-1; i >= 0; i--)
+		printf("\nAddress is longer the tree height.\n");
+		for(i = 0; i < address_length-(tree->height+1); i++)
 		{
-			if(&(current_node->subnodes[i]))
-			{
-				current_node = current_node->subnodes[i];
-				break;
-			}
+			supernode_tree(tree);
 		}
+		
+		tree->height = address_length-1;
 	}
 	
-	//now that we found the leaf, we find the next available spot
-	while(current_node->supernode)
+	if(address_length < (tree->height+1))
 	{
-		current_node = current_node->supernode;
+		printf("\nAddress is shorter the tree height.\n");
+		unsigned char new_address[tree->height+2];
 		
-		if(!current_node) break;
+		new_address[tree->height+1] = CLUSTER_SIZE;
 		
-//		current_node->
+		for(i = 0; i < (tree->height+1 - address_length); i++)
+		{
+			new_address[i] = 0;
+		}
+		
+		int j;
+		for(j = 0;i < (tree->height+1); i++,j++)
+		{
+			new_address[i] = address[j];
+		}
+		
+		address = new_address;
+		address_length = tree->height+1;
+		
+		//#include "address_print.c"
 	}
 	
+	//now add the cluster
+	tree_node* current_node = tree->top_node;
+	for(i = 0; i < address_length-1; i++)
+	{
+		if(current_node->subnodes[address[i]] == NULL)
+		{
+			if(i != address_length-2)
+				subnode(current_node,address[i]);
+			else
+				{
+					current_node->subnodes[address[i]] = init_cluster();
+					current_node->subnodes[address[i]]->supernode = current_node;
+					break;
+				}
+		}
+		
+		current_node = current_node->subnodes[address[i]];
+	}
 }
 
-void remove_cluster(tree_node* node, bool dealloc)
+void remove_cluster_at_address(unsigned char* address, cluster_tree* tree, bool dealloc)
 {
 
+	
 
+}
+
+symbol* get_symbol_at_address(unsigned char* address, cluster_tree* tree)
+{
+	return;
 }
 
 //Cluster clean up
@@ -128,54 +182,76 @@ void free_tree(cluster_tree* tree)
 
 
 //Cluster draw
-void draw_node(tree_node* node, int x, int y, int subnode_spacing)
+void draw_node(tree_node* node)
 {	
-	//draw square for node
-	draw_rectangle(x,y,2);
+	if(!node)return;
+	
+	if(node->supernode == NULL && node->subnodes == NULL && node->cluster == NULL)
+		//draw cross for node
+		draw_cross(window_width/2,window_height/2,20);
+	else
+		//draw square for node
+		draw_square(window_width/2,window_height/2,20);
+	
+	//draw supernode
+	if(node->supernode)
+	{
+		int s_y = window_height/4;
+		
+		draw_line(window_width/2,window_height/2,window_width/2,s_y);
+		draw_square(window_width/2,s_y,20);
+		
+		if(node->supernode->supernode)
+		{
+			draw_line(window_width/2,s_y,window_width/2,0);
+		}
+	}
 	
 	int v;
+	//draw cluster
 	if(node->cluster)
 	{
-		for(v = 1; v < CLUSTER_SIZE+1; v++)
+		unsigned int width = (unsigned int)(window_width/(CLUSTER_SIZE-1));
+		if(width > 30) width = 30;
+		for(v = 0; v < CLUSTER_SIZE-1; v++)
 		{
-			SDL_SetRenderDrawColor( debug_renderer, 255, 0, 0, 255 );
+			if(node->cluster[v].type = function)
+				SDL_SetRenderDrawColor( debug_renderer, 0, 0, 255, 255 );
+			else
+				SDL_SetRenderDrawColor( debug_renderer, 255, 0, 0, 255 );
 			
-			draw_rectangle(x,y+1+v*4,2);
+			draw_square(window_width/2 - width*(CLUSTER_SIZE-2)/2+width*v
+						,window_height/4*3
+						,width/2);
 			
 			SDL_SetRenderDrawColor( debug_renderer, 0, 255, 0, 255 );
 		}
 	}
 	
-	if(!(node->subnodes))return;
-	
-	//draw subnodes	
-	for(v = 0; v < CLUSTER_SIZE; v++)
+	if(node->subnodes)
 	{
-		int s_x;
-		int s_y;
-		
-		s_x = x - (CLUSTER_SIZE-1)*subnode_spacing/2 + subnode_spacing*v;
-		s_y = y + 20;
-		
-		draw_line(x,y,s_x,s_y);
-		
-		if(node->subnodes[v] != NULL)
+		//draw subnodes	
+		for(v = 0; v < CLUSTER_SIZE-1; v++)
 		{
-			draw_node(node->subnodes[v], s_x, s_y , subnode_spacing/(CLUSTER_SIZE-1));
-		}
-		else
-		{
+			unsigned int width = (unsigned int)(window_width/(CLUSTER_SIZE-1));
+			if(width > 30) width = 30;
 			
-			draw_cross(s_x,s_y,2);
+			int s_x;
+			int s_y;
+			
+			s_x = window_width/2 - width*(CLUSTER_SIZE-2)/2+width*v;
+			s_y = window_height/4*3;
+			
+			draw_line(window_width/2,window_height/2,s_x,s_y);
+			
+			if(node->subnodes[v] != NULL)
+			{
+				draw_square(s_x, s_y ,width/2);
+			}
+			else
+			{	
+				draw_cross(s_x, s_y, width/2);
+			}
 		}
 	}
-}
-
-void draw_tree(cluster_tree* tree, int x, int y, int subnode_spacing)
-{
-	SDL_SetRenderDrawColor(debug_renderer, 0 , 255, 0, 255);
-	
-	draw_node(tree->top_node, x, y, subnode_spacing);
-	
-	SDL_RenderPresent(debug_renderer);
 }

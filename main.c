@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 {		
 	#include "setup.c"
 	
-	#include "test_run.c"
+	//#include "test_run.c" 
 	
 	#include "main_loop.c"
 	

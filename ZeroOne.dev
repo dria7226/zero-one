@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=21
+UnitCount=29
 
 [VersionInfo]
 Major=1
@@ -259,4 +259,84 @@ Link=0
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_interpretter_types.c -o zo_interpretter_types.o $(CFLAGS)
+
+[Unit22]
+FileName=debug_window_setup.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c debug_window_setup.c -o debug_window_setup.o $(CFLAGS)
+
+[Unit23]
+FileName=helpers_cluster.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit24]
+FileName=helpers_general.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit25]
+FileName=helpers_interpreter.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit26]
+FileName=debug_main_loop.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c debug_main_loop.c -o debug_main_loop.o $(CFLAGS)
+
+[Unit27]
+FileName=handle_mouseButtonEvent.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c handle_mouseButtonEvent.c -o handle_mouseButtonEvent.o $(CFLAGS)
+
+[Unit28]
+FileName=address_cleanup.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c address_cleanup.c -o address_cleanup.o $(CFLAGS)
+
+[Unit29]
+FileName=address_print.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c address_print.c -o address_print.o $(CFLAGS)
 

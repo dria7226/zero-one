@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <stdio.h>
+#include "math.h"
 
 typedef enum{ false, true}bool;
 

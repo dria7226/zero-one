@@ -6,9 +6,9 @@ SDL_Renderer* renderer;
 
 SDL_Window* debug_window;
 SDL_Renderer* debug_renderer;
-bool firstTimeDragging;
-point previous;
-point camera;
+tree_node* selected_node;
+unsigned char selected_subnode;
 
 //Tape
-tape_type tape[256];
+symbol tape[256];
+cluster_tree* memory;

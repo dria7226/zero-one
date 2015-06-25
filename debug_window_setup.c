@@ -13,6 +13,3 @@ if( debug_renderer == NULL )
 {
     SDL_Log( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
 }
-
-camera.x = 0;
-camera.y = 0;
