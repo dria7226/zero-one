@@ -4,7 +4,9 @@
 *
 ***********************/
 
-#define CLUSTER_SIZE 255
+//#define CLUSTER_SIZE 255
+
+#define CLUSTER_SIZE 100
 
 //Cluster node
 
@@ -22,3 +24,5 @@ typedef struct cluster_tree{
 	
 	long long unsigned int height;
 }cluster_tree;
+
+typedef unsigned char* address;

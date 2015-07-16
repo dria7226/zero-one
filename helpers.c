@@ -4,4 +4,7 @@
 
 #include "helpers_interpreter.c"
 
+#include "helpers_address.c"
+
 #include "helpers_cluster.c"
+

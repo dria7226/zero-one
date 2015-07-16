@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=31
+UnitCount=32
 
 [VersionInfo]
 Major=1
@@ -359,4 +359,14 @@ Link=0
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c helpers_text.c -o helpers_text.o $(CFLAGS)
+
+[Unit32]
+FileName=helpers_address.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c helpers_address.c -o helpers_address.o $(CFLAGS)
 

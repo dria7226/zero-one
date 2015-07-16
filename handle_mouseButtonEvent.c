@@ -2,6 +2,9 @@
 if(event.button.windowID == 2 && event.button.state == SDL_PRESSED && event.button.button == SDL_BUTTON_LEFT)
 {	
 	//add cluster
-	unsigned char address[] = {RAND,RAND,RAND,CLUSTER_SIZE};
-	create_cluster_at_address(address,memory);
+	unsigned char rand_address[] = {RAND,RAND,RAND,CLUSTER_SIZE};
+	
+	address a = rand_address;
+	
+	create_cluster_at_address(&a,memory);
 }

@@ -6,6 +6,8 @@ func_type functions[NO_OF_FUNCTIONS];
 void _mov(void)
 {
 	tape[tape[tape[HEAD].value+2].value].value = tape[tape[HEAD].value + 1].value;
+	
+	
 }
 
 //AT
@@ -59,7 +61,7 @@ void _mul(void)
 //NOT
 void _not(void)
 {
-	tape[NOT_X].value =				   ~ tape[NOT_A].value;
+	tape[NOT_X].value =				  	  ~ tape[NOT_A].value;
 }
 
 //AND

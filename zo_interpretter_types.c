@@ -67,7 +67,6 @@ typedef enum DEFAULT_PARAM
 //Function implementations
 typedef enum DEFAULT_FUNCTIONS
 {
-	END,
     MOV,
     AT,
     JMP,

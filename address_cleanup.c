@@ -6,10 +6,8 @@ bool more_consecutive_zeroes = true;
 
 //Calculating effective address length
 	
-for(i = 0, address_length = 0; address[i] != CLUSTER_SIZE;i++)
-{
-	address_length++;
-}
+for(i = 0, address_length = 0; address[i] != CLUSTER_SIZE;i++);
+address_length = i;
 
 for(i = 0, effective_address_length = 0; address[i] != CLUSTER_SIZE;i++)
 {

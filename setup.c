@@ -8,7 +8,7 @@ window_width = (int)(display.w*0.9);
 window_height = (int)(display.h*0.9);
 
 //Create window
-window = SDL_CreateWindow("01", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_HIDDEN );
+window = SDL_CreateWindow("01", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN );
 
 if( window == NULL )
 {

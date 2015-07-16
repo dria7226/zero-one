@@ -149,8 +149,8 @@ void load_draws()
 }
 
 #define draw_char_value(x,y,v) \
-	draw[(unsigned char)(v-v%100)](x-thw*2-2,y);\
-	draw[(unsigned char)(v%100-v%10)](x,y);\
+	draw[(unsigned char)((v-v%100)/100)](x-thw*2-2,y);\
+	draw[(unsigned char)((v%100-v%10)/10)](x,y);\
 	draw[(unsigned char)(v%10)](x+thw*2+2,y);
 
 void draw_symbol_value(int x, int y, symbol* s)
