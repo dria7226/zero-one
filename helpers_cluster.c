@@ -102,7 +102,45 @@ void insert_cluster_at_address(address a, tree_node* target)
 
 void create_cluster_at_address(address* a, cluster_tree* tree)
 {		
-	if(adjust_address_to_length(a, tree->height))else return;
+	long long unsigned int i;
+	long long unsigned int address_length = address_cleanup(a);
+	
+	if(!address_length)return;
+	
+	if(address_length > tree->height+1)
+	{
+		printf("\nAddress is longer than the tree height.\n");
+		for(i = 0; i < address_length-(tree->height+1); i++)
+		{
+			supernode_tree(tree);
+		}
+		
+		tree->height = address_length-1;
+	}
+	
+	if(address_length < (tree->height+1))
+	{
+		printf("\nAddress is shorter than the tree height.\n");
+		address new_address = calloc(tree->height+2,sizeof(unsigned char));
+		
+		new_address[tree->height+1] = CLUSTER_SIZE;
+		
+		for(i = 0; i < (tree->height+1 - address_length); i++)
+		{
+			new_address[i] = 0;
+		}
+		
+		long long unsigned int j;
+		for(j = 0;i < (tree->height+1); i++,j++)
+		{
+			new_address[i] = (*a)[j];
+		}
+		
+		a = &new_address;
+		address_length = tree->height+1;
+		
+		address_print(a);
+	}
 	
 	//Now add the cluster
 	tree_node* current_node = tree->top_node;

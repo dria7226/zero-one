@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=32
+UnitCount=29
 
 [VersionInfo]
 Major=1
@@ -60,27 +60,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c main.c -o main.o $(CFLAGS)
 
-[Unit2]
-FileName=clean_up.c
-CompileCpp=0
-Folder=
-Compile=0
-Link=0
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=$(CC) -c clean_up.c -o clean_up.o $(CFLAGS)
-
 [Unit4]
-FileName=main_loop.c
-CompileCpp=0
-Folder=
-Compile=0
-Link=0
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=$(CC) -c main_loop.c -o main_loop.o $(CFLAGS)
-
-[Unit5]
 FileName=setup.c
 CompileCpp=0
 Folder=
@@ -90,7 +70,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c setup.c -o setup.o $(CFLAGS)
 
-[Unit6]
+[Unit5]
 FileName=handle_events.c
 CompileCpp=0
 Folder=
@@ -100,7 +80,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c handle_events.c -o handle_events.o $(CFLAGS)
 
-[Unit7]
+[Unit6]
 FileName=zo_load_program.c
 CompileCpp=0
 Folder=
@@ -110,7 +90,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit8]
+[Unit7]
 FileName=zo_main_loop.c
 CompileCpp=0
 Folder=
@@ -120,7 +100,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit9]
+[Unit8]
 FileName=zo_standard_program.c
 CompileCpp=0
 Folder=
@@ -130,7 +110,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit10]
+[Unit9]
 FileName=zo_definitions.c
 CompileCpp=0
 Folder=
@@ -140,7 +120,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_definitions.c -o zo_definitions.o $(CFLAGS)
 
-[Unit11]
+[Unit10]
 FileName=helpers.c
 CompileCpp=0
 Folder=
@@ -150,17 +130,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c helpers.c -o helpers.o $(CFLAGS)
 
-[Unit3]
-FileName=includes.c
-CompileCpp=0
-Folder=
-Compile=0
-Link=0
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=$(CC) -c includes.c -o includes.o $(CFLAGS)
-
-[Unit12]
+[Unit11]
 FileName=global_vars.c
 CompileCpp=0
 Folder=
@@ -170,7 +140,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c global_vars.c -o global_vars.o $(CFLAGS)
 
-[Unit13]
+[Unit3]
+FileName=main_loop.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c main_loop.c -o main_loop.o $(CFLAGS)
+
+[Unit12]
 FileName=zo_function_implementations.c
 CompileCpp=0
 Folder=
@@ -180,7 +160,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_function_implementations.c -o zo_function_implementations.o $(CFLAGS)
 
-[Unit14]
+[Unit13]
 FileName=zo_load_std_functions.c
 CompileCpp=0
 Folder=
@@ -190,7 +170,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_load_std_functions.c -o zo_load_std_functions.o $(CFLAGS)
 
-[Unit15]
+[Unit14]
 FileName=handle_mouseMotionEvent.c
 CompileCpp=0
 Folder=
@@ -200,7 +180,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c handle_mouseMotionEvent.c -o handle_mouseMotionEvent.o $(CFLAGS)
 
-[Unit16]
+[Unit15]
 FileName=zo_interface.c
 CompileCpp=0
 Folder=
@@ -210,7 +190,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_interface.c -o zo_interface.o $(CFLAGS)
 
-[Unit17]
+[Unit16]
 FileName=zo_load_interface.c
 CompileCpp=0
 Folder=
@@ -220,7 +200,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_load_interface.c -o zo_load_interface.o $(CFLAGS)
 
-[Unit18]
+[Unit17]
 FileName=test_cluster_tree.c
 CompileCpp=0
 Folder=
@@ -230,7 +210,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c test_cluster_tree.c -o test_cluster_tree.o $(CFLAGS)
 
-[Unit19]
+[Unit18]
 FileName=test_run.c
 CompileCpp=0
 Folder=
@@ -240,7 +220,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c test_run.c -o test_run.o $(CFLAGS)
 
-[Unit20]
+[Unit19]
 FileName=zo_cluster_tree.c
 CompileCpp=0
 Folder=
@@ -250,7 +230,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_cluster_tree.c -o zo_cluster_tree.o $(CFLAGS)
 
-[Unit21]
+[Unit20]
 FileName=zo_interpretter_types.c
 CompileCpp=0
 Folder=
@@ -260,7 +240,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c zo_interpretter_types.c -o zo_interpretter_types.o $(CFLAGS)
 
-[Unit22]
+[Unit21]
 FileName=debug_window_setup.c
 CompileCpp=0
 Folder=
@@ -270,7 +250,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c debug_window_setup.c -o debug_window_setup.o $(CFLAGS)
 
-[Unit23]
+[Unit22]
 FileName=helpers_cluster.c
 CompileCpp=0
 Folder=
@@ -280,7 +260,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit24]
+[Unit23]
 FileName=helpers_general.c
 CompileCpp=0
 Folder=
@@ -290,7 +270,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit25]
+[Unit24]
 FileName=helpers_interpreter.c
 CompileCpp=0
 Folder=
@@ -300,7 +280,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit26]
+[Unit25]
 FileName=debug_main_loop.c
 CompileCpp=0
 Folder=
@@ -310,7 +290,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c debug_main_loop.c -o debug_main_loop.o $(CFLAGS)
 
-[Unit27]
+[Unit26]
 FileName=handle_mouseButtonEvent.c
 CompileCpp=0
 Folder=
@@ -320,25 +300,15 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CC) -c handle_mouseButtonEvent.c -o handle_mouseButtonEvent.o $(CFLAGS)
 
-[Unit28]
-FileName=address_cleanup.c
+[Unit27]
+FileName=handle_keyboardEvent.c
 CompileCpp=0
 Folder=
 Compile=0
 Link=0
 Priority=1000
 OverrideBuildCmd=0
-BuildCmd=$(CC) -c address_cleanup.c -o address_cleanup.o $(CFLAGS)
-
-[Unit29]
-FileName=address_print.c
-CompileCpp=0
-Folder=
-Compile=0
-Link=0
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=$(CC) -c address_print.c -o address_print.o $(CFLAGS)
+BuildCmd=$(CC) -c handle_keyboardEvent.c -o handle_keyboardEvent.o $(CFLAGS)
 
 [Unit30]
 FileName=handle_keyboardEvent.c
@@ -361,6 +331,36 @@ OverrideBuildCmd=0
 BuildCmd=$(CC) -c helpers_text.c -o helpers_text.o $(CFLAGS)
 
 [Unit32]
+FileName=helpers_address.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c helpers_address.c -o helpers_address.o $(CFLAGS)
+
+[Unit2]
+FileName=includes.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c includes.c -o includes.o $(CFLAGS)
+
+[Unit28]
+FileName=helpers_text.c
+CompileCpp=0
+Folder=
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=$(CC) -c helpers_text.c -o helpers_text.o $(CFLAGS)
+
+[Unit29]
 FileName=helpers_address.c
 CompileCpp=0
 Folder=

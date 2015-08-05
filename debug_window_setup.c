@@ -1,5 +1,5 @@
 //Create debug window
-debug_window = SDL_CreateWindow("01 DEBUG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN );
+debug_window = SDL_CreateWindow("01 DEBUG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_HIDDEN );
 
 if( debug_window == NULL )
 {

@@ -10,7 +10,7 @@ typedef enum variable_type {variable, function} variable_type;
 //Tape type
 typedef struct symbol{
     variable_type type;
-    unsigned char value;
+    uint8_t value;
 }symbol;
 
 //Default parameter location
