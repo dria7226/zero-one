@@ -30,6 +30,18 @@ selected_subnode = 0;
 
 //------------------------
 
+address t;
+
+unsigned char t_address[] = { 0,0,0,0,89, 99, 52, 24,CLUSTER_SIZE};
+
+t = t_address;
+
+if(!adjust_address_to_length(&t, 10)) printf("adjust error\n");
+
+print_address(&t);
+
+//------------------------
+
 printf("CLUSTER_SIZE: %u\n",CLUSTER_SIZE);
 
 unsigned char x,y,z,c;
@@ -110,6 +122,53 @@ if(!half_adder_error)
 }
 else
 	printf("half adder error \n");
+	
+printf("\n");
+	
+x = 24;
+y = 13;
+
+answer = add_with_manual_overflow(x,y,0);
+
+if(!half_adder_error)
+{	
+	z = answer[0];
+	c = answer[1];
+	
+	printf("%u + %u = %u, with %u carry\n",x,y,z,c);
+}
+else
+	printf("half adder error \n");
+	
+x = 52;
+y = 99;
+
+answer = add_with_manual_overflow(x,y,c);
+
+if(!half_adder_error)
+{	
+	z = answer[0];
+	c = answer[1];
+	
+	printf("%u + %u = %u, with %u carry\n",x,y,z,c);
+}
+else
+	printf("half adder error \n");
+	
+x = 99;
+y = 59;
+
+answer = add_with_manual_overflow(x,y,c);
+
+if(!half_adder_error)
+{	
+	z = answer[0];
+	c = answer[1];
+	
+	printf("%u + %u = %u, with %u carry\n",x,y,z,c);
+}
+else
+	printf("half adder error \n");
 
 //------------------------
 
@@ -124,17 +183,17 @@ unsigned char b_address[] = {     59, 99, 13,CLUSTER_SIZE};
 b = b_address;
 
 printf("a");
-address_print(&a);
+print_address(&a);
 printf("\n");
 
 printf("b");
-address_print(&b);
+print_address(&b);
 printf("\n");
 
 increment_address_by(&a,&b);
 
 printf("a+b=");
-address_print(&a);
+print_address(&a);
 
 #include "zo_load_interface.c"
 

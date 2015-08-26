@@ -103,7 +103,7 @@ void insert_cluster_at_address(address a, tree_node* target)
 void create_cluster_at_address(address* a, cluster_tree* tree)
 {		
 	long long unsigned int i;
-	long long unsigned int address_length = address_cleanup(a);
+	long long unsigned int address_length = cleanup_address(a);
 	
 	if(!address_length)return;
 	
@@ -139,7 +139,7 @@ void create_cluster_at_address(address* a, cluster_tree* tree)
 		a = &new_address;
 		address_length = tree->height+1;
 		
-		address_print(a);
+		print_address(a);
 	}
 	
 	//Now add the cluster

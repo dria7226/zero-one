@@ -4,7 +4,7 @@
 *
 ***********************/
 
-void address_print(address* a)
+void print_address(address* a)
 {
 	long long unsigned int i;
 	
@@ -16,13 +16,22 @@ void address_print(address* a)
 	printf("\n");
 }
 
-long long unsigned int address_cleanup(address* a)
+long long unsigned int get_address_length(address* a)
+{
+	long long unsigned int i = 0;
+	
+	while((*a)[i] < CLUSTER_SIZE) {i++;}
+	
+	return i;
+}
+
+long long unsigned int cleanup_address(address* a)
 {
 	long long unsigned int i;
 	long long unsigned int address_length,effective_address_length; // effective address length (exclunding leading zeroes)
 	bool more_consecutive_zeroes = true;
 	
-	//address_print(a);
+	//print_address(a);
 	
 	//Calculating effective address length	
 	for(i = 0, effective_address_length = 0; (*a)[i] < CLUSTER_SIZE;i++)
@@ -55,61 +64,45 @@ long long unsigned int address_cleanup(address* a)
 			effective_address[effective_address_length-i] = (*a)[address_length-i];
 		}
 		
-		free((*a));
+		free(*a);
 		(*a) = effective_address;
 		
 		address_length = effective_address_length;
 	}
 	
-	//address_print(a);
+	//print_address(a);
 	
 	return address_length;
 }
 
-
 bool adjust_address_to_length(address* a, long long unsigned int length)
 {
 	long long unsigned int i;
-	long long unsigned int address_length = address_cleanup(a);
+	long long unsigned int address_length = get_address_length(a);
 	
-	if(!address_length)return false;
+	//error out if the length is 0
+	if(!(address_length||length))return false;
 	
-	if(address_length > length)
+	if(address_length == length) return true;
+	
+	address temp = calloc(length+1,sizeof(unsigned char));
+	temp[length] = CLUSTER_SIZE;
+	
+	print_address(&temp);
+	
+	//problem is here [I think]
+	for(i = 0; i < length; i++)
 	{
-		address new_address = calloc(length+1,sizeof(unsigned char));
-		
-		new_address[length] = CLUSTER_SIZE;
-		
-		long long unsigned int j;
-		for(i = length-1;i >= 0; i--)
-		{
-			new_address[i] = (*a)[i];
-		}
-		
-		a = &new_address;
-		address_length = length+1;
+		if(i < address_length)
+		temp[length - 1 - i] = (*a)[address_length - 1 - i];
+		else
+		temp[length - 1 - i] = 0;
 	}
 	
-	if(address_length < length)
-	{
-		address new_address = calloc(length+1,sizeof(unsigned char));
-		
-		new_address[length] = CLUSTER_SIZE;
-		
-		for(i = 0; i < (length+1 - address_length); i++)
-		{
-			new_address[i] = 0;
-		}
-		
-		long long unsigned int j;
-		for(j = 0;i < (length+1); i++,j++)
-		{
-			new_address[i] = (*a)[j];
-		}
-		
-		a = &new_address;
-		address_length = length+1;
-	}
+	//this will crash \/\/\/\/\/
+	free(a);
+	
+	a = &temp;	
 	
 	return true;
 }
@@ -124,7 +117,7 @@ unsigned char* add_with_manual_overflow( unsigned char x, unsigned char y, bool 
 {
 	if(x >= CLUSTER_SIZE || y >= CLUSTER_SIZE) { half_adder_error = 1; return;}
 	
-	//-------------------------z-c--
+	//allocate RAM for answer
 	unsigned char* result;
 	result = calloc(2,sizeof(unsigned char));
 	
@@ -151,9 +144,11 @@ unsigned char* add_with_manual_overflow( unsigned char x, unsigned char y, bool 
 
 void increment_address_by(address* a, address* amount)
 {
-	//clean both addresses and get lengths
-	long long unsigned int a_length = address_cleanup(a);
-	long long unsigned int amount_length = address_cleanup(amount);
+	// get lengths
+	long long unsigned int 		a_length = get_address_length(a);
+	long long unsigned int amount_length = get_address_length(amount);
+	
+	printf("%u,%u\n",a_length,amount_length);
 	
 	if(!(a_length||amount_length)) return;
 	
@@ -163,53 +158,87 @@ void increment_address_by(address* a, address* amount)
 		a_length = amount_length;
 	}
 	
+	if(amount_length < a_length)
+	{
+		adjust_address_to_length(amount,a_length);
+		amount_length = a_length;
+	}
+	
+	print_address(a);
+	print_address(amount);
+	
+	printf("%u,%u\n",a_length,amount_length);
+	
 	//repeatedly add pairs of bytes with carry-in and out
 	long long unsigned int i;
 	
 	bool carry = 0;
 	
 	//be careful about overflow and carries (overflows at CLUSTER_SIZE [not MAX_UCHAR] and carries are multiples of C_S)	
-	for(i = 0; i < a_length + 1; i++)
+	for(i = 0; i < amount_length; i++)
 	{
 		unsigned char* answer;
 		
-		answer = add_with_manual_overflow(a[i],amount[i],carry);
+		#define input_a ( (*a)[a_length - 1 - i] )
+		#define input_amount ( (*amount)[amount_length - 1 - i] )
+		
+		printf("input_a : %u, input_amount : %u\n", input_a, input_amount);
+		
+		answer = add_with_manual_overflow(input_a,input_amount,carry);
 		
 		if(!half_adder_error)
 		{
-			a[i] = answer[0];
+			input_a = answer[0];
 			carry = answer[1];
+			free(answer);
 		}
-		
-		free(answer);
+		else
+		{
+			printf("half adder error \n");
+			return;
+		}
 	}
 	
 	if(carry)
 	{
 		adjust_address_to_length(a,a_length+1);
-	
 		(*a)[i++] = carry;
 	}
+}
+
+void increment_address(address* a)
+{
+	//get length
+	long long unsigned int length = get_address_length(a);
 	
+	if(!length)return;
+	
+	//loop
+	long long unsigned int i;
+	
+	#define input ( (*a)[length - 1 - i] )
+	for(i = 0; i < length; i++)
+	{
+		input++;
+		
+		if( input < input-1 || input > CLUSTER_SIZE-1 )
+		{
+			//handle overflow
+			
+		}
+		else
+			return;
+	}
 }
 
 void decrement_address_by(address* a, address* amount)
 {
 	//clean both addresses
-	long long unsigned int a_length = address_cleanup(a);
-	long long unsigned int amount_length = address_cleanup(amount);
+	long long unsigned int a_length = cleanup_address(a);
+	long long unsigned int amount_length = cleanup_address(amount);
 	
 	if(!(a_length||amount_length)) return;
 	
 	
 
-}
-
-long long unsigned int get_address_length(address* a)
-{
-	long long unsigned int i;
-	
-	for(i = 0; (*a)[i] < CLUSTER_SIZE;i++){}
-	
-	return i;
 }
