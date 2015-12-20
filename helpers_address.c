@@ -88,9 +88,6 @@ bool adjust_address_to_length(address* a, long long unsigned int length)
 	address temp = calloc(length+1,sizeof(unsigned char));
 	temp[length] = CLUSTER_SIZE;
 	
-	print_address(&temp);
-	
-	//problem is here [I think]
 	for(i = 0; i < length; i++)
 	{
 		if(i < address_length)
@@ -99,10 +96,9 @@ bool adjust_address_to_length(address* a, long long unsigned int length)
 		temp[length - 1 - i] = 0;
 	}
 	
-	//this will crash \/\/\/\/\/
 	free(a);
 	
-	a = &temp;	
+	*a = temp;
 	
 	return true;
 }

@@ -30,18 +30,6 @@ selected_subnode = 0;
 
 //------------------------
 
-address t;
-
-unsigned char t_address[] = { 0,0,0,0,89, 99, 52, 24,CLUSTER_SIZE};
-
-t = t_address;
-
-if(!adjust_address_to_length(&t, 10)) printf("adjust error\n");
-
-print_address(&t);
-
-//------------------------
-
 printf("CLUSTER_SIZE: %u\n",CLUSTER_SIZE);
 
 unsigned char x,y,z,c;
@@ -194,6 +182,8 @@ increment_address_by(&a,&b);
 
 printf("a+b=");
 print_address(&a);
+
+return;
 
 #include "zo_load_interface.c"
 
