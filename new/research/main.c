@@ -9,7 +9,7 @@ int main (int argc, char** argv)
 	// }
 
 	//test mman_abstract
-	memory m;
+	memory* m;
 	MMAP(m);
 
 	//search current folder for binaries - loop
