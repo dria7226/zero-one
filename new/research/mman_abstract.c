@@ -2,14 +2,14 @@
 
 	#define LENGTH_TYPE			SIZE_T
 	#define ADDRESS_TYPE			LPVOID
-	#define PROTECTION_TYPE		DWORD
+	#define PROTECTION_TYPE			DWORD
 	#define SUCCESS_TYPE			BOOL
 
 #else
 
 	#define LENGTH_TYPE			size_t
 	#define ADDRESS_TYPE			void*
-	#define PROTECTION_TYPE		int
+	#define PROTECTION_TYPE			int
 	#define SUCCESS_TYPE			unsigned char
 #endif
 
@@ -35,7 +35,6 @@ typedef struct memory
 	SUCCESS_TYPE WINAPI UNMAP(memory* m)
 	{
 		SUCCESS_TYPE status = VirtualFree(m->address, 0, MEM_RELEASE);
-		free(m);
 		return status;
 	}
 
@@ -62,13 +61,12 @@ typedef struct memory
 	//	http://man7.org/linux/man-pages/man2/mmap.2.html
 	ADDRESS_TYPE MMAP(memory* m, LENGTH_TYPE length, PROTECTION_TYPE protection)
 	{
-		return m->address = mmap(NULL, m->length = length, m->protection = protection, MAP_ANONYMOUS, -1, NULL);
+		return m->address = mmap(0, m->length = length, m->protection = protection, MAP_ANONYMOUS, -1, 0);
 	}
 
 	SUCCESS_TYPE UNMAP(memory* m)
 	{
 		SUCCESS_TYPE status = munmap(m->address, m->length);
-		free(m);
 		return status;
 	}
 

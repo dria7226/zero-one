@@ -9,8 +9,13 @@ int main (int argc, char** argv)
 	// }
 
 	//test mman_abstract
+	
+	printf("Hello!");
+
 	memory* m;
-	MMAP(m);
+	MMAP(m,100,PAGE_READWRITE);
+
+	printf("Goodbye!");
 
 	//search current folder for binaries - loop
 
