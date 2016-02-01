@@ -9,13 +9,35 @@ int main (int argc, char** argv)
 	// }
 
 	//test mman_abstract
+
+	unsigned char buffer[] =
+	{
+		0x48, 0x50
+	};
+
+	memory m;
+	MAP(&m,sizeof(buffer),PAGE_READWRITE);
 	
-	printf("Hello!");
+	if(&m == (void*)-1)
+	{
+		perror("NULL");
+		return;
+	}
 
-	memory* m;
-	MMAP(m,100,PAGE_READWRITE);
+	unsigned int i;
+	for(i = 0; i < sizeof(buffer); i++)
+	{
+		&m[i] = buffer[i];
+	}
 
-	printf("Goodbye!");
+	printf("Writing out mapped memory:\n");
+
+	for(i = 0; i < sizeof(buffer);i++)
+	{
+		printf("%d\n",&m[i]);
+	}
+
+	printf("Done!");
 
 	//search current folder for binaries - loop
 
