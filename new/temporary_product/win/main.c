@@ -15,6 +15,4 @@ int WINAPI WinMain (HINSTANCE hInstance,
    #include "../load_standard_segments.c"
 
    #include "../run_segments.c"
-
-   #include "cleanup.c"
 }

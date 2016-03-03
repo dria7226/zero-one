@@ -1,3 +1,8 @@
+int test(int x)
+{
+   return x + 42;
+}
+
 /********************
    Window Procedure
  ********************/
