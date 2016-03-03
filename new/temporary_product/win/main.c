@@ -10,7 +10,7 @@ int WINAPI WinMain (HINSTANCE hInstance,
                     LPSTR lpCmdLine,
                     int iCmdShow)
 {
-   #include "../common/setup.c"
+   //#include "../common/setup.c"
 
    #include "../load_standard_segments.c"
 
