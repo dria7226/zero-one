@@ -1,1 +1,1 @@
-gcc main.c -o ./product/main.exe
+gcc main.c -Wall -o ./product/main.exe
