@@ -98,3 +98,82 @@ int main(int argc, char** argv) {
   return 0;
 }
 
+/*****************************************
+
+
+
+http://ref.x86asm.net/coder32.html
+
+http://stackoverflow.com/questions/22090696/encoding-a-call-instruction-to-call-a-function
+*****************************************/
+#include <stdint.h>
+#include <iostream>
+
+#include <windows.h>
+
+typedef void (*function)();
+uint8_t* instructionBuffer;
+uint32_t pos;
+
+/**
+ * Creates the instruction buffer;
+ */
+void assembler_initialize() {
+    instructionBuffer = (uint8_t*) VirtualAllocEx(GetCurrentProcess(), 0, 1024,
+    MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    pos = 0;
+}
+
+/**
+ * Writes a call to the given address to the instruction buffer
+ */
+void assembler_emit_call(uint32_t value) {
+   // CALL opcode
+   instructionBuffer[pos++] = 0xb8;  // mov  eax, address
+
+   // Address as little endian
+   *(DWORD*)(instructionBuffer + pos) = value ;
+   pos += 4 ;
+
+   instructionBuffer[pos++] = 0xff ;  // call eax
+   instructionBuffer[pos++] = 0xd0 ;
+   instructionBuffer[pos++] = 0xc3 ;  // ret
+}
+
+/**
+ * Writes a RET to the instruction buffer
+ */
+void assembler_emit_ret() {
+   instructionBuffer[pos++] = 0xC3;
+}
+
+/**
+ * The function to call
+ */
+void __cdecl myFunction() {
+    std::cout << "Hello world!" << std::endl;
+}
+
+/**
+ *
+ */
+int main(int argc, char **argv) {
+    assembler_initialize();
+    assembler_emit_call((uint32_t) &myFunction);
+    assembler_emit_ret();
+
+    // Output the address
+    std::cout << std::hex << (uint32_t) &myFunction << std::endl;
+
+    // Output the opcodes
+    for (uint32_t i = 0; i < 100; i++) {
+        std::cout << std::hex << (uint32_t) instructionBuffer[i] << " ";
+    }
+    std::cout << std::endl;
+
+    // Call the function
+    function f = (function) instructionBuffer;
+    f();
+
+    return 0;
+}
