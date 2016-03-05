@@ -11,3 +11,4 @@ uint8_t* main_segment;
 #include "load_main.c"
 
 //replace "system call" placeholders with actual addresses
+#include "temporary_system_call_replacement.c"
