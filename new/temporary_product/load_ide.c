@@ -6,7 +6,7 @@ if(success != -1 && status.st_size > 1)
 {
     file = fopen(ide_file, "r");
 
-    char machine_language = fgetc(ide_file);
+    uint8_t machine_language = (uint8_t) fgetc(ide_file);
 
 #ifdef _WIN32
     ide_segment = (uint8_t*) VirtualAllocEx(GetCurrentProcess(), 0, status.st_size-1,

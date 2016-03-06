@@ -6,7 +6,7 @@ struct typedef replacement{
     uint8_t* replace_with;
 }replacement;
 
-void replace_system_calls_in_buffer(uint8_t buffer, unsigned int length)
+void replace_system_calls_in_segment(uint8_t buffer, unsigned int length)
 {
     //find call to replace
     unsigned int i;
@@ -32,5 +32,5 @@ void replace_system_calls_in_buffer(uint8_t buffer, unsigned int length)
     }
 
     //replace the array
-    
+
 }
