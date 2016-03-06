@@ -9,10 +9,26 @@ struct typedef replacement{
 void replace_system_calls_in_buffer(uint8_t buffer, unsigned int length)
 {
     //find call to replace
-    int i;
+    unsigned int i;
     for(i =0; i<length; i++)
     {
-        if( buffer[i] == )
+        //check for a sequence of 8 0x00 bytes
+        uint8_t j = 0;
+        while(j < 8)
+        {
+            if( buffer[i + j] == 0x00)
+            {
+                j++;
+                if( j == 7 )
+                //verify if valid instruction
+            }
+            else
+            {
+                //no chance for replacement, skip
+                i+=j;
+                break;
+            }
+        }
     }
 
     //replace the array
