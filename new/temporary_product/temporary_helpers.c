@@ -52,8 +52,21 @@ void replace_system_calls_in_segment(uint8_t* buffer, uint16_t length)
                    if ((buffer[i-1] && buffer[i-1] == 0xFF) || (buffer[i-2] && buffer[i-2] == 0xFF))
                    {
                       //is valid instruction, do replacement
-                      //create replacement map
+                      //create node to add to node map
+                      r_map_node* node;
+                      node->address = i;
                       
+                      //first time code
+                      if(map->start == NULL)
+                      {
+                          map->start = node;
+                          map->end = node;
+                          map->size++;
+                      }
+                      else
+                      {
+                          add_node(node);
+                      }
                    }
                    else
                    {
@@ -80,11 +93,12 @@ void replace_system_calls_in_segment(uint8_t* buffer, uint16_t length)
     // uint8_t* temp_buffer = VirtualAlloc(total_length);
     r_map_node* current_node = map->start;
     i = 0;
+    uint8_t j;
     while(current_node->next != NULL)
     {
         if(i < current_node->address)
         {
-            new_buffer[i] = buffer[i];
+            new_buffer[i] = buffer[i+j];
             i++;
         }
         if(i == current_node->address)
@@ -95,6 +109,7 @@ void replace_system_calls_in_segment(uint8_t* buffer, uint16_t length)
             }
             
             current_node = current_node->next;
+            j++;
         }
         
     }
