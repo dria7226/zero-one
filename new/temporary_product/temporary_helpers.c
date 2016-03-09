@@ -5,7 +5,7 @@ struct typedef replacement{
     //these will be followed by one byte to id the system call (this limits the number of system calls to 256)
     uint8_t* to_replace;
 
-    uint8_t* replace_with;
+    uint64_t* replace_with;
 }replacement;
 
 struct typedef r_map_node{
@@ -37,16 +37,16 @@ void replace_system_calls_in_segment(uint8_t* buffer, uint16_t length)
     
     //find call to replace
     uint16_t i;
-    for(i =1; i<length; i++)
+    for(i =1; i < length; i++)
     {
         //check for a sequence of 8 0x00 bytes
         uint8_t j = 0;
-        while(j < 8)
+        while(j < SYSTEM_ADDRESS_SIZE)
         {
             if( buffer[i + j] == 0x00)
             {
                 j++;
-                if( j == 7 )
+                if( j == SYSTEM_ADDRESS_SIZE - 1 )
                 {
                    //verify if valid instruction
                    if ((buffer[i-1] && buffer[i-1] == 0xFF) || (buffer[i-2] && buffer[i-2] == 0xFF))
