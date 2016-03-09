@@ -10,7 +10,7 @@ void replace_system_calls_in_segment(uint8_t buffer, unsigned int length)
 {
     //find call to replace
     unsigned int i;
-    for(i =0; i<length; i++)
+    for(i =1; i<length; i++)
     {
         //check for a sequence of 8 0x00 bytes
         uint8_t j = 0;
@@ -20,7 +20,20 @@ void replace_system_calls_in_segment(uint8_t buffer, unsigned int length)
             {
                 j++;
                 if( j == 7 )
-                //verify if valid instruction
+                {
+                   //verify if valid instruction
+                   if ((buffer[i-1] && buffer[i-1] == 0xFF) || (buffer[i-2] && buffer[i-2] == 0xFF))
+                   {
+                      //is valid instruction, do replacement
+                      
+                   }
+                   else
+                   {
+                      //is not valid
+                      i+=j;
+                      break;
+                   }
+                }
             }
             else
             {
