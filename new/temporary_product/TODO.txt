@@ -1,0 +1,6 @@
+1. Test mman_abstract.c
+2. Replace memory allocation calls in jit.c
+3. Test jit.c
+4. Test new/temporary_product/*
+   4.1. Test new/temporary_product with existing code segments from jit.c
+   4.2. Test new/temporary_product with call replacements
