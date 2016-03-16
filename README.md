@@ -1,4 +1,4 @@
 # zero-one
-A Flexible Universal Turing Machine. A Flexible Bytecode Interpreter.
+A launcher program that runs code segments. The format for code segments is very straightforward, it doesn't contain any headers. They are the strict binary for the code.
 
-http://eli.thegreenplace.net/2013/11/05/how-to-jit-an-introduction
+Check new/temporary_product for the latest implementation.
