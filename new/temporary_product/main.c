@@ -14,8 +14,14 @@
 /********************
    Main
  ********************/
-#ifdef _WIN32
-   #include "win/main.c"
+#define TESTING
+ 
+#ifndef TESTING
+	#ifdef _WIN32
+	   #include "win/main.c"
+	#else
+	
+	#endif
 #else
-
+	#include "test_main.c"
 #endif
