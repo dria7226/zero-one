@@ -17,7 +17,7 @@ int main (int argc, char** argv)
 
 	memory m;
 	MAP(&m,sizeof(buffer),PAGE_READWRITE);
-	
+
 	if(&m == (void*)-1)
 	{
 		perror("NULL");
