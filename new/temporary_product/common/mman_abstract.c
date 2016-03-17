@@ -77,18 +77,3 @@ typedef struct memory
 	}
 
 #endif
-
-void load_binary(FILE* file)
-{
-
-}
-
-void load_data(FILE* file)
-{
-
-}
-
-void load_executable(FILE* file)
-{
-
-}
