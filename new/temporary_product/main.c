@@ -14,12 +14,11 @@
 /********************
    Main
  ********************/
-#ifndef TESTING
-	#ifdef _WIN32
-	   #include "win/main.c"
-	#else
-
-	#endif
-#else
-	#include "test_main.c"
-#endif
+// #ifndef TESTING
+// 	#ifdef _WIN32
+// 	   //#include "win/main.c"
+// 	#endif
+// #else
+// 	#include "test_main.c"
+// #endif
+#include "common/test_main.c"
