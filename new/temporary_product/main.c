@@ -7,13 +7,9 @@
 
 #endif
 
-<<<<<<< HEAD
-// #include "common/variables.c"
-=======
 #include "common/includes.c"
 
 #include "common/variables.c"
->>>>>>> 055d3d71a6ecd6abbd9364b05239a24161c5325a
 
 /********************
    Main
