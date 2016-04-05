@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <gl/gl.h>
+#include <stdint.h>
+// #include <gl/gl.h>
 
 int test(int x)
 {
@@ -8,4 +9,4 @@ int test(int x)
 
 #include "mman_abstract.c"
 
-#include "temporary_helpers.c"
+// #include "temporary_helpers.c"
