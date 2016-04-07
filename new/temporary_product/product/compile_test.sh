@@ -1,1 +1,1 @@
-gcc -D TESTING ../main.c -o ./main.exe -mwindows -lopengl32
+gcc ../main.c -D TESTING -o ./main.exe -mwindows -lopengl32

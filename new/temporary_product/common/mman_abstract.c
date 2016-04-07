@@ -2,14 +2,14 @@
 
 	#define LENGTH_TYPE			SIZE_T
 	#define ADDRESS_TYPE			LPVOID
-	#define PROTECTION_TYPE			DWORD
+	#define PROTECTION_TYPE		DWORD
 	#define SUCCESS_TYPE			BOOL
 
 #else
 
 	#define LENGTH_TYPE			size_t
 	#define ADDRESS_TYPE			void*
-	#define PROTECTION_TYPE			int
+	#define PROTECTION_TYPE		int
 	#define SUCCESS_TYPE			unsigned char
 #endif
 

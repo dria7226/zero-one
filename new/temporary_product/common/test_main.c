@@ -1,4 +1,5 @@
 int main( int argc, char* argv)
 {
-   #include "test_mman.c"
+   printf("Hi! 2\n");
+   // #include "test_mman.c"
 }
