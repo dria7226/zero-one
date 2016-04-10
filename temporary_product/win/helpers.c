@@ -40,7 +40,7 @@ void WIN_CreateGraphics(HINSTANCE hInstance)
    HWND hWnd;
    HDC hDC;
    HGLRC hRC;
-   MSG msg;
+   // MSG msg;
 
    /* register window class */
    wc.style = CS_OWNDC;
