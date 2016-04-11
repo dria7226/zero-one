@@ -11,4 +11,4 @@
 #   *)        echo "unknown: $OSTYPE" ;;
 # esac
 
-gcc main.c -o ./product/main.exe -mwindows -lopengl32
+gcc main.c -o ./product/main.exe -mwindows -lopengl32 -Wall
