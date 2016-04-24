@@ -7,6 +7,6 @@
 
 //#include "../common/setup.c"
 
-#include "../load_standard_segments.c"
+#include "../load_target.c"
 
-#include "../run_segments.c"
+#include "../run_target.c"

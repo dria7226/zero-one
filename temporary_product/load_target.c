@@ -1,3 +1,10 @@
+FILE* file;
+struct stat status;
+int success;
+
+//load target segment
+uint8_t* target_segment;
+
 char* main_file = "./main.segment";
 
 success = stat(main_file, &status);
@@ -19,3 +26,6 @@ if(success != -1 && status.st_size > 1)
 
     fclose(main_file);
 }
+
+//replace system calls
+replace_system_calls_in_segment(target_segment,status.st_size);

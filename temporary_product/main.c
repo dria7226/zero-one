@@ -25,10 +25,12 @@ int main (int argc, char* argv)
 {
 	#ifndef TESTING
 		#ifdef _WIN32
-		   #include "win/main.c"
+			printf("This is win32\n");
+			//#include "win/main.c"
 		#endif
 	#else
-		#include "common/test_main.c"
+		printf("This is test\n");
+		//#include "common/test_main.c"
 	#endif
 
 	return 0;
