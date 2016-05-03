@@ -1,11 +1,15 @@
 #ifdef _WIN32
 
+	
+
 	#define LENGTH_TYPE			SIZE_T
 	#define ADDRESS_TYPE			LPVOID
 	#define PROTECTION_TYPE		DWORD
 	#define SUCCESS_TYPE			BOOL
 
 #else
+
+	#include <sys_mman.h>
 
 	#define LENGTH_TYPE			size_t
 	#define ADDRESS_TYPE			void*

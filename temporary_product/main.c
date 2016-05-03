@@ -9,8 +9,6 @@
 
 #include "common/includes.c"
 
-// #include "common/variables.c"
-
 /********************
    Main
  ********************/
