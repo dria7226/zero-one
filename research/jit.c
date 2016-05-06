@@ -68,7 +68,7 @@ void run_from_rwx() {
   emit_code_into_memory(m);
 
   JittedFunc func = m;
-  printf("result = %d\n", func(2));
+  printf("result = %li\n", func(2));
   UNMAP(m);
 }
 
@@ -81,7 +81,7 @@ void emit_to_rw_run_from_rx() {
   make_memory_executable(m, SIZE);
 
   JittedFunc func = m;
-  printf("result = %d\n", func(2));
+  printf("result = %li\n", func(2));
   UNMAP(m);
 }
 
