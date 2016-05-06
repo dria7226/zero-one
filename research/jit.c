@@ -10,18 +10,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "mman_abstract.c"
 
 
 // Allocates RWX memory of given size and returns a pointer to it. On failure,
 // prints out the error and returns NULL.
-void* alloc_executable_memory(size_t size) {
-  ADDRESS_TYPE ptr = MAP(0, size,
-                   PROT_READ | PROT_WRITE | PROT_EXEC,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+ADDRESS_TYPE alloc_executable_memory(size_t size) {
+  memory* m;
+  ADDRESS_TYPE ptr = MAP(m, size, PAGE_EXECUTE_READWRITE);
   if (ptr == (void*)-1) {
-    perror("mmap");
+    perror("MAP");
     return NULL;
   }
   return ptr;
@@ -31,12 +29,11 @@ void* alloc_executable_memory(size_t size) {
 // prints out the error and returns NULL. mmap is used to allocate, so
 // deallocation has to be done with munmap, and the memory is allocated
 // on a page boundary so it's suitable for calling mprotect.
-void* alloc_writable_memory(size_t size) {
-  void* ptr = mmap(0, size,
-                   PROT_READ | PROT_WRITE,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+ADDRESS_TYPE alloc_writable_memory(size_t size) {
+  memory* m;
+  ADDRESS_TYPE ptr = MAP(m, size, PAGE_READWRITE);
   if (ptr == (void*)-1) {
-    perror("mmap");
+    perror("MAP");
     return NULL;
   }
   return ptr;
@@ -44,9 +41,9 @@ void* alloc_writable_memory(size_t size) {
 
 // Sets a RX permission on the given memory, which must be page-aligned. Returns
 // 0 on success. On failure, prints out the error and returns -1.
-int make_memory_executable(void* m, size_t size) {
-  if (mprotect(m, size, PROT_READ | PROT_EXEC) == -1) {
-    perror("mprotect");
+int make_memory_executable(memory* m, size_t size) {
+  if (PROTECT(m, PAGE_EXECUTE_READ) == -1) {
+    perror("PROTECT");
     return -1;
   }
   return 0;
@@ -61,29 +58,31 @@ void emit_code_into_memory(unsigned char* m) {
   memcpy(m, code, sizeof(code));
 }
 
-const size_t SIZE = 1024;
+#define SIZE 1024
 typedef long (*JittedFunc)(long);
 
 // Allocates RWX memory directly.
 void run_from_rwx() {
-  void* m = alloc_executable_memory(SIZE);
+  printf("test1\n");
+  ADDRESS_TYPE m = alloc_executable_memory(SIZE);
   emit_code_into_memory(m);
 
   JittedFunc func = m;
-  int result = func(2);
-  printf("result = %d\n", result);
+  printf("result = %d\n", func(2));
+  UNMAP(m);
 }
 
 // Allocates RW memory, emits the code into it and sets it to RX before
 // executing.
 void emit_to_rw_run_from_rx() {
-  void* m = alloc_writable_memory(SIZE);
+  printf("test2\n");
+  ADDRESS_TYPE m = alloc_writable_memory(SIZE);
   emit_code_into_memory(m);
   make_memory_executable(m, SIZE);
 
   JittedFunc func = m;
-  int result = func(2);
-  printf("result = %d\n", result);
+  printf("result = %d\n", func(2));
+  UNMAP(m);
 }
 
 int main(int argc, char** argv) {
