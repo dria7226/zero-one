@@ -1,3 +1,9 @@
+0. check write xor execute in mman
+1. check endianness of code
+2. test jit.c
+3. test temporary product
+
+
 0. Figure and fix the compiling shit
 1. Test mman_abstract.c
 2. Replace memory allocation calls in jit.c
