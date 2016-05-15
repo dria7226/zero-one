@@ -8,22 +8,9 @@
 //------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+// #include <string.h>
 
 #include "mman_abstract.c"
-
-
-// Allocates RWX memory of given size and returns a pointer to it. On failure,
-// prints out the error and returns NULL.
-ADDRESS_TYPE alloc_executable_memory(size_t size) {
-  memory* m;
-  ADDRESS_TYPE ptr = MAP(m, size, PAGE_EXECUTE_READWRITE);
-  if (ptr == (void*)-1) {
-    perror("MAP");
-    return NULL;
-  }
-  return ptr;
-}
 
 // Allocates RW memory of given size and returns a pointer to it. On failure,
 // prints out the error and returns NULL. mmap is used to allocate, so
@@ -51,9 +38,18 @@ int make_memory_executable(memory* m, size_t size) {
 
 void emit_code_into_memory(unsigned char* m) {
   unsigned char code[] = {
-    0x48, 0x89, 0xf8,                   // mov %rdi, %rax
-    0x48, 0x83, 0xc0, 0x04,             // add $4, %rax
-    0xc3                                // ret
+    0x55,                      //push   %rbp
+    0x48, 0x89, 0xe5,          //mov    %rsp,%rbp
+    0x89, 0x4d, 0x10,          //mov    %ecx,0x10(%rbp)
+    0x8b, 0x45, 0x10,          //mov    0x10(%rbp),%eax
+    0x83, 0xc0, 0x02,          //add    $0x2,%eax
+    0xc9,                      //leaveq
+    0xc3,                      //retq
+    0x90                       //nop
+
+    // 0x48, 0x89, 0xf8,                   // mov %rdi, %rax
+    // 0x48, 0x83, 0xc0, 0x04,             // add $4, %rax
+    // 0xc3                                // ret
   };
   memcpy(m, code, sizeof(code));
 }
@@ -61,21 +57,11 @@ void emit_code_into_memory(unsigned char* m) {
 #define SIZE 1024
 typedef long (*JittedFunc)(long);
 
-// Allocates RWX memory directly.
-void run_from_rwx() {
-  printf("test1\n");
-  ADDRESS_TYPE m = alloc_executable_memory(SIZE);
-  emit_code_into_memory(m);
-
-  JittedFunc func = m;
-  printf("result = %li\n", func(2));
-  UNMAP(m);
-}
-
 // Allocates RW memory, emits the code into it and sets it to RX before
 // executing.
-void emit_to_rw_run_from_rx() {
-  printf("test2\n");
+int main(int argc, char** argv) {
+  printf("Starting jit\n");
+
   ADDRESS_TYPE m = alloc_writable_memory(SIZE);
   emit_code_into_memory(m);
   make_memory_executable(m, SIZE);
@@ -83,11 +69,6 @@ void emit_to_rw_run_from_rx() {
   JittedFunc func = m;
   printf("result = %li\n", func(2));
   UNMAP(m);
-}
-
-int main(int argc, char** argv) {
-  run_from_rwx();
-  emit_to_rw_run_from_rx();
 
   return 0;
 }
