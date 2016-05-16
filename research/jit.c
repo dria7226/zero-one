@@ -39,10 +39,10 @@ int make_memory_executable(memory* m, size_t size) {
 void emit_code_into_memory(unsigned char* m) {
   unsigned char code[] = {
     0x55,                      //push   %rbp
-    0x48, 0x89, 0xe5,          //mov    %rsp,%rbp
-    0x89, 0x4d, 0x10,          //mov    %ecx,0x10(%rbp)
-    0x8b, 0x45, 0x10,          //mov    0x10(%rbp),%eax
-    0x83, 0xc0, 0x02,          //add    $0x2,%eax
+    0xe5, 0x89, 0x48,           //mov    %rsp,%rbp
+    0x10, 0x4d, 0x89,           //mov    %ecx,0x10(%rbp)
+    0x10, 0x45, 0x8b,            //mov    0x10(%rbp),%eax
+    0x02, 0xc0, 0x83,          //add    $0x2,%eax
     0xc9,                      //leaveq
     0xc3,                      //retq
     0x90                       //nop

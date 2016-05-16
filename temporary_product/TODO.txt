@@ -1,6 +1,5 @@
-0. check write xor execute in mman
-1. check endianness of code
-2. test jit.c
+
+2. test jit.c ( like endianess )
 3. test temporary product
 
 
