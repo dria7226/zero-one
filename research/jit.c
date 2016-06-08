@@ -67,7 +67,8 @@ int main(int argc, char** argv) {
   make_memory_executable(m, SIZE);
 
   JittedFunc func = m;
-  printf("result = %li\n", func(2));
+  long int answer = func(2);
+  printf("result = %li\n", answer);
   UNMAP(m);
 
   return 0;

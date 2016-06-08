@@ -1,5 +1,5 @@
+0. figure runtime error
 
-2. test jit.c ( like endianess )
 3. test temporary product
 
 

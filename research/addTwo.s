@@ -5,8 +5,7 @@
 addTwo:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	%ecx, 16(%rbp)
-	movl	16(%rbp), %eax
+	movl	%ecx, %eax
 	addl	$2, %eax
 	leave
 	ret
