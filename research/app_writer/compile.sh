@@ -1,1 +1,0 @@
-gcc app_writer.c -o ./Products/app_writer.exe

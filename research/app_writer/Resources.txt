@@ -1,4 +1,0 @@
-//WINDOWS PE
-https://en.wikipedia.org/wiki/Portable_Executable
-//MACH-O
-http://seriot.ch/hello_macho.php
