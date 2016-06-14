@@ -20,3 +20,5 @@ fclose(file);
 
 //change protection
 PROTECT(code, PAGE_EXECUTE_READ);
+
+printf("Target loaded \n");
