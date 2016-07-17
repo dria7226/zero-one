@@ -1,4 +1,8 @@
-FILE* file = fopen(target,"rb");
+#define TARGET argv[1]
+
+printf("Loading target ...");
+
+FILE* file = fopen(&TARGET,"rb");
 
 memory* code;
 
@@ -12,7 +16,7 @@ MAP(code, length, PAGE_READWRITE);
 //copy from file and close
 if (fread(code->address, length, 1, file))
 {
-   printf("Can't read file into memory. /n");
+   printf("/n Can't read file into memory.");
    return;
 }
 
@@ -21,4 +25,4 @@ fclose(file);
 //change protection
 PROTECT(code, PAGE_EXECUTE_READ);
 
-printf("Target loaded \n");
+printf("Done.\n");

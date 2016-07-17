@@ -1,1 +1,1 @@
-gcc main.c -o 01.exe
+gcc main.c -o 01.exe supplementary/icon.res

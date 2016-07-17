@@ -6,8 +6,6 @@
 
 int main(int argc, char *argv)
 {
-  char* target;
-
   #include "check_target.c"
 
   #include "load_target.c"
