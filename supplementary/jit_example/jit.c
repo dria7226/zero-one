@@ -53,6 +53,16 @@ asmbuf_immediate(struct asmbuf *buf, int size, const void *value)
     buf->count += size;
 }
 
+void
+asmbuf_write_out(struct asmbuf *buf)
+{
+  FILE* file = fopen("../../test.01","wb");
+
+  fwrite(buf->code,sizeof(char),buf->count,file);
+
+  fclose(file);
+}
+
 int main(void)
 {
     /* Compile input program */
@@ -86,6 +96,8 @@ int main(void)
     }
     asmbuf_ins(buf,  1, 0xc3); // ret
     asmbuf_finalize(buf);
+
+    asmbuf_write_out(buf);
 
     long init;
     unsigned long term;

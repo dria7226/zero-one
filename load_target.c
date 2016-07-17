@@ -1,4 +1,4 @@
-#define TARGET argv[1]
+// #define TARGET argv[1]
 
 printf(ANSI_COLOR_GREEN "Loading target ..." ANSI_COLOR_RESET);
 
