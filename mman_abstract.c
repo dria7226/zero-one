@@ -28,7 +28,7 @@ typedef struct memory
 	//	https://msdn.microsoft.com/en-us/library/windows/desktop/aa366887(v=vs.85).aspx
 	ADDRESS_TYPE WINAPI MAP(memory* m, LENGTH_TYPE length, PROTECTION_TYPE protection)
 	{
-		return m->address = VirtualAlloc(NULL, m->length = length, MEM_COMMIT|MEM_RESERVE, m->protection = protection);
+		return m->address = VirtualAlloc(NULL, m->length = length, MEM_COMMIT, m->protection = protection);
 	}
 
 	// https://msdn.microsoft.com/en-us/library/windows/desktop/aa366892(v=vs.85).aspx
