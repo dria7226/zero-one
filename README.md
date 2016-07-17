@@ -1,6 +1,6 @@
 # zero-one
 A launcher program that runs machine code.
 
-## TO DO list:
+## TO DO List:
 
-* Fix crash in load_target.c
+* Fix mapping crash in load_target.c
