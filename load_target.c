@@ -1,6 +1,6 @@
 #define TARGET argv[1]
 
-printf("Loading target ...");
+printf(ANSI_COLOR_GREEN "Loading target ..." ANSI_COLOR_RESET);
 
 FILE* file = fopen(TARGET,"rb");
 
@@ -10,13 +10,19 @@ fseek(file, 0, SEEK_END);
 long length = ftell(file);
 fseek(file, 0, SEEK_SET);
 
+if(length == 0)
+{
+  printf("\n" ANSI_COLOR_RED "ERROR" ANSI_COLOR_RESET " Target is empty.");
+  return;
+}
+
 //allocate memory
 MAP(code, length, PAGE_READWRITE);
 
 //copy from file and close
 if (fread(code->address, length, 1, file))
 {
-   printf("\nCan't read file into memory.");
+   printf("\n" ANSI_COLOR_RED "ERROR" ANSI_COLOR_RESET " Can't read file into memory.");
    return;
 }
 
@@ -25,4 +31,4 @@ fclose(file);
 //change protection
 PROTECT(code, PAGE_EXECUTE_READ);
 
-printf("Done.\n");
+printf(ANSI_COLOR_BLUE "Done.\n" ANSI_COLOR_RESET);

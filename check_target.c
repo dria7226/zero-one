@@ -3,17 +3,17 @@
 //check if there are any arguments
 if(argc <= 1)
 {
-  printf("No target specified.\n");
+  printf( ANSI_COLOR_RED "ERROR" ANSI_COLOR_RESET " No target specified.\n");
   return;
 }
 
-printf("Checking target: %s ... ",TARGET);
+printf(ANSI_COLOR_GREEN "Checking target:" ANSI_COLOR_RESET " %s " ANSI_COLOR_GREEN " ... " ANSI_COLOR_RESET,TARGET);
 
 //check if the file exists
 if(access(TARGET, F_OK) == -1)
 {
-    printf("\nCan't access target.");
+    printf("\n" ANSI_COLOR_RED "ERROR" ANSI_COLOR_RESET " Can't access target.");
     return;
 }
 
-printf("Done.\n");
+printf(ANSI_COLOR_BLUE "Done.\n" ANSI_COLOR_RESET);
