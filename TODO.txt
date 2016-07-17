@@ -1,1 +1,1 @@
-1. Fix crash in check_target.c at access()
+1. Fix crash in load_target.c

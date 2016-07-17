@@ -2,7 +2,7 @@
 
 printf("Loading target ...");
 
-FILE* file = fopen(&TARGET,"rb");
+FILE* file = fopen(TARGET,"rb");
 
 memory* code;
 
@@ -16,7 +16,7 @@ MAP(code, length, PAGE_READWRITE);
 //copy from file and close
 if (fread(code->address, length, 1, file))
 {
-   printf("/n Can't read file into memory.");
+   printf("\nCan't read file into memory.");
    return;
 }
 

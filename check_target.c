@@ -10,9 +10,9 @@ if(argc <= 1)
 printf("Checking target: %s ... ",TARGET);
 
 //check if the file exists
-if(access(&TARGET, F_OK) == -1)
+if(access(TARGET, F_OK) == -1)
 {
-    printf("/n Can't access target.");
+    printf("\nCan't access target.");
     return;
 }
 

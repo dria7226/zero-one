@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int main(int argc, char *argv)
+int main(int argc, char** argv)
 {
   #include "check_target.c"
 
