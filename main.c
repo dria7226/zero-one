@@ -1,9 +1,10 @@
 #include <windows.h>
-#include "mman_abstract.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "mman_abstract.c"
 
+// SetConsoleTextAttribute( GetStdHandle( STD_INPUT_HANDLE ), 0x5B ); http://www.cplusplus.com/forum/beginner/5830/
 #define ANSI_COLOR_RED      "\x1b[41m"
 #define ANSI_COLOR_GREEN    "\x1b[32m"
 #define ANSI_COLOR_BLUE     "\x1b[36m"
