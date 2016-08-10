@@ -6,8 +6,6 @@ FILE* file = fopen(TARGET,"rb");
 
 struct memory code;
 
-#define PAGE_SIZE 4096
-
 fseek(file, 0, SEEK_END);
 unsigned long length = ftell(file);
 fseek(file, 0, SEEK_SET);
@@ -19,7 +17,7 @@ if(length == 0)
 }
 
 //allocate memory
-if( MAP(&code, /*length*/ PAGE_SIZE, PAGE_READWRITE) == MAP_FAILED)
+if( MAP(&code, length, PAGE_READWRITE) == MAP_FAILED)
 {
   printf("\n" ANSI_COLOR_RED "ERROR %lu:" ANSI_COLOR_RESET " Can't map necessary memory.",GET_LAST_ERROR());
   return;

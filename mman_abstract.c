@@ -49,8 +49,8 @@ struct memory
 	// https://msdn.microsoft.com/en-us/library/windows/desktop/aa366898(v=vs.85).aspx
 	SUCCESS_TYPE WINAPI PROTECT(struct memory* m, PROTECTION_TYPE protection)
 	{
-		PDWORD trash;
-		return VirtualProtect(m->address, m->length, m->protection = protection, trash);
+		DWORD trash;
+		return VirtualProtect(m->address, m->length, m->protection = protection, &trash);
 	}
 
 	ERROR_TYPE WINAPI GET_LAST_ERROR()
