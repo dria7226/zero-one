@@ -1,16 +1,24 @@
 #ifdef _WIN32
 
-	#define LENGTH_TYPE			SIZE_T
+	#define LENGTH_TYPE				SIZE_T
 	#define ADDRESS_TYPE			LPVOID
-	#define PROTECTION_TYPE			DWORD
+	#define PROTECTION_TYPE		DWORD
+	#define ERROR_TYPE				DWORD
 	#define SUCCESS_TYPE			BOOL
+
+	#define MAP_FAILED				NULL
+	#define PROTECT_FAILED		0
 
 #else
 
-	#define LENGTH_TYPE			size_t
+	#define LENGTH_TYPE				size_t
 	#define ADDRESS_TYPE			void*
-	#define PROTECTION_TYPE			int
-	#define SUCCESS_TYPE			unsigned char
+	#define PROTECTION_TYPE		int
+	#define ERROR_TYPE				int
+	#define SUCCESS_TYPE			int
+
+	#define PROTECT_FAILED		-1
+
 #endif
 
 struct memory
@@ -45,6 +53,11 @@ struct memory
 		return VirtualProtect(m->address, m->length, m->protection = protection, trash);
 	}
 
+	ERROR_TYPE WINAPI GET_LAST_ERROR()
+	{
+		return GetLastError();
+	}
+
 #else
 
 	#define PAGE_NOACCESS				PROT_NONE
@@ -74,6 +87,11 @@ struct memory
 	SUCCESS_TYPE PROTECT(struct memory* m, PROTECTION_TYPE protection)
 	{
 		return mprotect(m->address, m->length, m->protection = protection);
+	}
+
+	ERROR_TYPE GET_LAST_ERROR()
+	{
+		return errno;
 	}
 
 #endif

@@ -12,8 +12,6 @@ fseek(file, 0, SEEK_END);
 unsigned long length = ftell(file);
 fseek(file, 0, SEEK_SET);
 
-printf("\nThe length of the file is %lu bytes",length);
-
 if(length == 0)
 {
   printf("\n" ANSI_COLOR_RED "ERROR" ANSI_COLOR_RESET " Target is empty.");
@@ -21,24 +19,26 @@ if(length == 0)
 }
 
 //allocate memory
-printf("\nMapping");
-MAP(&code, /*length*/ PAGE_SIZE, PAGE_READWRITE);
+if( MAP(&code, /*length*/ PAGE_SIZE, PAGE_READWRITE) == MAP_FAILED)
+{
+  printf("\n" ANSI_COLOR_RED "ERROR %lu:" ANSI_COLOR_RESET " Can't map necessary memory.",GET_LAST_ERROR());
+  return;
+}
 
 //copy from file and close
-printf("\nReading");
-unsigned long var = fread(code.address, length, 1, file);
-printf("\nfread == %lu",var);
-if (var != length)
+if (fread(code.address, 1, length, file) != length)
 {
    printf("\n" ANSI_COLOR_RED "ERROR" ANSI_COLOR_RESET " Can't read file into memory.");
    return;
 }
 
-printf("\nClosing");
 fclose(file);
 
 //change protection
-printf("\nProtecting");
-PROTECT(&code, PAGE_EXECUTE_READ);
+if(PROTECT(&code, PAGE_EXECUTE_READ) == PROTECT_FAILED)
+{
+  printf("\n" ANSI_COLOR_RED "ERROR %lu:" ANSI_COLOR_RESET " Can't make code executable.", GET_LAST_ERROR());
+  return;
+}
 
 printf(ANSI_COLOR_BLUE "Done.\n" ANSI_COLOR_RESET);
