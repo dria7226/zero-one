@@ -1,5 +1,5 @@
 # zero-one
-A launcher program that runs machine code.
+A launcher program that translates and then runs machine code.
 
 ## TO DO List:
 
