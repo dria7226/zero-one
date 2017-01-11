@@ -1,5 +1,3 @@
-// #define TARGET argv[1]
-
 printf(ANSI_COLOR_GREEN "Loading target ... " ANSI_COLOR_RESET);
 
 FILE* file = fopen(TARGET,"rb");
